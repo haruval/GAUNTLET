@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu2vt4dd76umh"]
+
+[ext_resource type="PackedScene" uid="uid://dwr8ojt767kfa" path="res://pistol.tscn" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://lab5vwbuybey" path="res://player/scripts/player.gd" id="1_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 2
+script = ExtResource("1_onrkg")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+
+[node name="Pistol" parent="." instance=ExtResource("1_4flbx")]

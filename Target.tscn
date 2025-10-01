@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cud5j1b171xve"]
+
+[ext_resource type="Script" uid="uid://ctl73icpb4g6e" path="res://target.gd" id="1_na354"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6f2ye"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_0mptp"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q42c6"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Target" type="StaticBody3D" groups=["target"]]
+script = ExtResource("1_na354")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6f2ye")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_0mptp")
+surface_material_override/0 = SubResource("StandardMaterial3D_q42c6")
