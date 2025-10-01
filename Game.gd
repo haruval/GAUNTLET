@@ -4,6 +4,7 @@ extends Node3D
 var score: int = 0
 
 func _ready() -> void:
+	Engine.max_fps = 120
 	randomize()  # enable non-repeating randoms each run
 	# Connect any targets already in the scene
 	for t in get_tree().get_nodes_in_group("target"):
