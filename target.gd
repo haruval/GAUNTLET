@@ -19,13 +19,20 @@ func respawn() -> void:
 	if wall == null:
 		push_warning("Target has no wall assigned.")
 		return
-	# pick random local X/Y in the wall rect
+
+	# Pick random local X/Y on the wall
 	var half_w = wall_size.x * 0.5 - margin
 	var half_h = wall_size.y * 0.5 - margin
 	var rx = randf_range(-half_w, half_w)
 	var ry = randf_range(-half_h, half_h)
 
 	var wt: Transform3D = wall.global_transform
-	# wall local axes: X (right), Y (up), Z (forward)
 	var local_offset = wt.basis.x * rx + wt.basis.y * ry + wt.basis.z * pop_out
-	global_transform = Transform3D(wt.basis, wt.origin + local_offset)
+	var new_origin = wt.origin + local_offset
+
+	# --- preserve local scale robustly ---
+	var keep_local_scale := self.scale
+	# Set rotation/position from wall
+	self.global_transform = Transform3D(wt.basis.orthonormalized(), new_origin)
+	# Reapply the local scale
+	self.scale = keep_local_scale
