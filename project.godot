@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="GAUNTLET_dev"
+config/name="GAUNTLET"
 run/main_scene="uid://d4h61wnda4pdm"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=120
