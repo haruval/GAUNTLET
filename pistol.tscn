@@ -143,6 +143,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2(-6, -83)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_pjrfv")
