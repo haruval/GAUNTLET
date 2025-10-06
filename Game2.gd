@@ -3,7 +3,7 @@ extends Node3D
 
 enum State { IDLE, RUNNING, FINISHED }
 
-@export var starting_level: int = 1   # <-- set this per scene: World.tscn = 1, World_Level2.tscn = 2
+@export var starting_level: int = 2   # <-- set this per scene: World.tscn = 1, World_Level2.tscn = 2
 
 @onready var timer: Timer = $CountdownTimer
 @onready var score_label: Label = $CanvasLayer/ScoreLabel
@@ -17,7 +17,7 @@ var level: int = 1
 #level params
 # Level data for this scene
 var levels: Array = [
-	{"goal": 3, "duration": 10.0},  # Level 1
+	{"goal": 30, "duration": 30.0},  # Level 1
 	# You can add more dicts here if you want to run multiple levels in one scene later.
 ]
 
