@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=15 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://bcfs12m7g8xck" path="res://retro_postprocess_screen.gdshader" id="5_036b0"]
 [ext_resource type="Texture2D" uid="uid://bw2iwhj4uyf22" path="res://gauntletthick.png" id="6_dwbse"]
 [ext_resource type="Script" uid="uid://ymrlhaa8tsif" path="res://splash_layer.gd" id="6_pkg7o"]
+[ext_resource type="Script" uid="uid://cu0nvugdnrhlr" path="res://pause_layer.gd" id="8_gbfbk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -56,7 +57,7 @@ environment = SubResource("Environment_tlwt5")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_f3sb7")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -179,3 +180,59 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_dwbse")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 999
+script = ExtResource("8_gbfbk")
+
+[node name="PauseRoot" type="Control" parent="PauseLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PauseLayer/PauseRoot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -110.0
+offset_right = 210.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Title" type="Label" parent="PauseLayer/PauseRoot/Panel"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "MENU"
+
+[node name="HBox" type="HBoxContainer" parent="PauseLayer/PauseRoot/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SensLabel" type="Label" parent="PauseLayer/PauseRoot/Panel/HBox"]
+visible = false
+layout_mode = 2
+
+[node name="SensInput" type="LineEdit" parent="PauseLayer/PauseRoot/Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="PauseLayer/PauseRoot/Panel"]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "QUIT"

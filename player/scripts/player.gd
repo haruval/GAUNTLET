@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 const MOUSE_SENS: float = 0.015
+var mouse_sens: float = MOUSE_SENS       # runtime-editable copy
 
 const SPEED: float = 10.0
 const JUMP_VELOCITY = 4.5
@@ -19,12 +20,11 @@ func _ready() -> void:
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		#yaw
-		rotation_degrees.y -= event.relative.x * MOUSE_SENS
+		rotation_degrees.y -= event.relative.x * mouse_sens
 		#pitch
-		pitch_deg = clamp(pitch_deg - event.relative.y * MOUSE_SENS, -PITCH_LIMIT, PITCH_LIMIT)
+		pitch_deg = clamp(pitch_deg - event.relative.y * mouse_sens, -PITCH_LIMIT, PITCH_LIMIT)
 		head.rotation_degrees.x = pitch_deg
-		# (Optional) if pistol should tilt with head but is not a child of Head:
-		# pistol.rotation_degrees.x = pitch_deg
+		
 		
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		shoot()
@@ -67,4 +67,9 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	
+# Optional helpers so UI can call methods (no direct field access needed):
+func get_mouse_sens() -> float:
+	return mouse_sens
+
+func set_mouse_sens(v: float) -> void:
+	mouse_sens = max(0.0001, v)  # avoid zero/negatives
