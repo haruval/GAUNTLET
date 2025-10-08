@@ -258,28 +258,28 @@ size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_ic0uy")
 
 [node name="tree" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 8.81758, -1.2718472, -14.80565)
+transform = Transform3D(-0.14083469, 0, -0.37438697, 0, 0.4, 0, 0.37438697, 0, -0.14083469, 8.81758, -1.2718472, -14.80565)
 
 [node name="tree2" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -8.104413, -1.2718472, -14.5023)
+transform = Transform3D(0.22819369, 0, 0.32852343, 0, 0.4, 0, -0.32852343, 0, 0.22819369, -8.104413, -1.2718472, -14.5023)
 
 [node name="tree4" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -14.5274, -1.2718472, -7.4127383)
+transform = Transform3D(0.36865053, 0, 0.15523146, 0, 0.4, 0, -0.15523146, 0, 0.36865053, -14.5274, -1.2718472, -7.4127383)
 
 [node name="tree7" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -14.5274, -1.2718472, -12.064032)
+transform = Transform3D(0.031091321, 0, -0.39878985, 0, 0.4, 0, 0.39878985, 0, 0.031091321, -14.5274, -1.2718472, -12.064032)
 
 [node name="tree8" parent="." instance=ExtResource("11_ic0uy")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -7.778068, -1.2718472, -24.051483)
 
 [node name="tree9" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 7.6253724, -1.2718472, -28.422714)
+transform = Transform3D(0.33439577, 0, -0.21949823, 0, 0.4, 0, 0.21949823, 0, 0.33439577, 7.6253724, -1.2718472, -28.422714)
 
 [node name="tree5" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 18.558311, -1.2718472, -7.4127383)
+transform = Transform3D(0.2048771, 0, 0.34354824, 0, 0.4, 0, -0.34354824, 0, 0.2048771, 18.558311, -1.2718472, -7.4127383)
 
 [node name="tree6" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 18.558311, -1.2718472, -11.9629)
+transform = Transform3D(0.29908678, 0, 0.26560703, 0, 0.4, 0, -0.26560703, 0, 0.29908678, 18.558311, -1.2718472, -11.9629)
 
 [node name="tree3" parent="." instance=ExtResource("11_ic0uy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.76948166, -1.2718472, -20.095966)
+transform = Transform3D(0.34906322, 0, 0.19533275, 0, 0.4, 0, -0.19533275, 0, 0.34906322, -0.76948166, -1.2718472, -20.095966)
