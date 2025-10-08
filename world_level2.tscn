@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwtid6w0po5np"]
+[gd_scene load_steps=13 format=3 uid="uid://bwtid6w0po5np"]
 
 [ext_resource type="Script" uid="uid://bvofplqng500f" path="res://Game2.gd" id="1_mwn50"]
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="2_txbgy"]
 [ext_resource type="Script" uid="uid://bj1vjhv0fxjbv" path="res://crosshair.gd" id="3_b4p4k"]
 [ext_resource type="PackedScene" uid="uid://cud5j1b171xve" path="res://Target.tscn" id="4_kuwws"]
+[ext_resource type="Shader" uid="uid://bcfs12m7g8xck" path="res://retro_postprocess_screen.gdshader" id="5_b4p4k"]
+[ext_resource type="Script" uid="uid://cu0nvugdnrhlr" path="res://pause_layer.gd" id="6_kuwws"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -21,6 +23,27 @@ glow_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vshpc"]
+shader = ExtResource("5_b4p4k")
+shader_parameter/scale_resolution = true
+shader_parameter/target_resolution_scale = 7
+shader_parameter/change_color_depth = false
+shader_parameter/target_color_depth = 5
+shader_parameter/dithering = false
+shader_parameter/brightness = 0.0
+shader_parameter/contrast = 1.35
+shader_parameter/saturation = 0.9
+shader_parameter/noise_enabled = true
+shader_parameter/noise_strength = 0.035
+shader_parameter/chromab_enabled = true
+shader_parameter/chromab_pixels = 1.5
+shader_parameter/enable_recolor = false
+shader_parameter/palette_enabled = false
+shader_parameter/pal0 = Vector3(0.05, 0.1, 0.05)
+shader_parameter/pal1 = Vector3(0.2, 0.45, 0.2)
+shader_parameter/pal2 = Vector3(0.6, 0.8, 0.35)
+shader_parameter/pal3 = Vector3(0.9, 0.95, 0.7)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_mwn50")
@@ -53,6 +76,7 @@ transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = SubResource("BoxMesh_fj7yv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
 offset_right = 143.0
@@ -112,3 +136,70 @@ wall = NodePath("../Wall")
 [node name="CountdownTimer" type="Timer" parent="."]
 wait_time = 30.0
 one_shot = true
+
+[node name="PostFX" type="CanvasLayer" parent="."]
+
+[node name="RetroOverlay" type="ColorRect" parent="PostFX"]
+material = SubResource("ShaderMaterial_vshpc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 999
+script = ExtResource("6_kuwws")
+
+[node name="PauseRoot" type="Control" parent="PauseLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PauseLayer/PauseRoot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -110.0
+offset_right = 210.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Title" type="Label" parent="PauseLayer/PauseRoot/Panel"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "MENU"
+
+[node name="HBox" type="HBoxContainer" parent="PauseLayer/PauseRoot/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SensLabel" type="Label" parent="PauseLayer/PauseRoot/Panel/HBox"]
+layout_mode = 2
+text = "sensitivity: "
+
+[node name="SensInput" type="LineEdit" parent="PauseLayer/PauseRoot/Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="PauseLayer/PauseRoot/Panel"]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "QUIT"
