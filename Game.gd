@@ -31,6 +31,11 @@ func _ready() -> void:
 	# Connect all targets' signals
 	for t in get_tree().get_nodes_in_group("target"):
 		t.scored.connect(_on_target_scored)
+	
+	# Apply higher floor clearance only in Level 1
+	if starting_level == 1:
+		for t in get_tree().get_nodes_in_group("target"):
+			t.position.y += 1.3  # raise each target 1 meter upward
 
 	timer.timeout.connect(_on_timer_timeout)
 
