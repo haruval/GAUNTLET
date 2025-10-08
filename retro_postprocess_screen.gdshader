@@ -1,67 +1,44 @@
-/*shader_type canvas_item;
-
-// Declare the screen texture explicitly (Godot 4+)
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
-
-uniform bool scale_resolution = true;
-uniform int target_resolution_scale : hint_range(1,8) = 3;
-
-void fragment() {
-    // Compute viewport size without VIEWPORT_SIZE
-    vec2 viewport_size = 1.0 / SCREEN_PIXEL_SIZE;
-
-    ivec2 ipx = ivec2(FRAGCOORD.xy);
-    vec2 uv;
-
-    if (scale_resolution && target_resolution_scale > 1) {
-        ivec2 low = ipx / target_resolution_scale;
-        vec2 sample_px = (vec2(low) + 0.5) * float(target_resolution_scale);
-        uv = sample_px / viewport_size;
-    } else {
-        uv = SCREEN_UV;
-    }
-
-    COLOR = texture(SCREEN_TEXTURE, uv);
-}*/
-
-///////////////////////////////////
-//try new stuff here
-///////////////////////////////////
-
 shader_type canvas_item;
 
-/* Explicit screen sampler for Godot 4+ */
+/* explicit screen sampler (Godot 4+) */
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
 
-/* ===== Exaggerated retro look (strong defaults) ===== */
+/* ===== Retro core (no CRT, no jitter) ===== */
 group_uniforms resolution_and_colors;
 uniform bool  scale_resolution = true;
-uniform int   target_resolution_scale : hint_range(1,12) = 6;   // bigger = chunkier pixels
-
+uniform int   target_resolution_scale : hint_range(1,32) = 8;   // bigger = chunkier pixels
 uniform bool  change_color_depth = true;
-uniform int   target_color_depth  : hint_range(1,8) = 3;        // 3 bits/channel
+uniform int   target_color_depth  : hint_range(1,8) = 2;        // 2 bits/channel = heavy posterize
 uniform bool  dithering = true;
 
+/* simple grading */
 group_uniforms grading;
 uniform float brightness : hint_range(-1.0,1.0) = 0.0;
-uniform float contrast   : hint_range(0.5,2.0)  = 1.35;
+uniform float contrast   : hint_range(0.5,3.0)  = 1.25;
 uniform float saturation : hint_range(0.0,2.0)  = 0.9;
 
-group_uniforms crt_styling;
-uniform bool  scanlines_enabled = true;
-uniform float scanline_strength : hint_range(0.0,1.0) = 0.25;
-uniform float scanline_frequency : hint_range(0.5,8.0) = 2.0;
+/* film grain (kept subtle) */
+group_uniforms film_fx;
+uniform bool  noise_enabled        = true;
+uniform float noise_strength       : hint_range(0.0,0.5) = 0.03;
 
-uniform bool  vignette_enabled = true;
-uniform float vignette_strength : hint_range(0.0,1.0) = 0.35;
-uniform float vignette_softness : hint_range(0.1,1.5) = 0.8;
-
+/* 🔴 chromatic aberration (ON and stronger by default) */
+group_uniforms aberration;
 uniform bool  chromab_enabled = true;
-uniform float chromab_pixels  : hint_range(0.0,4.0) = 1.5;      // RB shift in *pixels*
+uniform float chromab_pixels  : hint_range(0.0,8.0) = 3.5;  // RB shift in pixels (cranked)
 
+/* optional gradient recolor (hue swap) */
 group_uniforms gradient_recoloring;
-uniform bool       enable_recolor = false;
-uniform sampler2D  to_gradient    : hint_default_black, filter_nearest;
+uniform bool       enable_recolor  = false;
+uniform sampler2D  to_gradient     : hint_default_black, filter_nearest;
+
+/* optional 4-color palette lock (extreme look) */
+group_uniforms palette_lock;
+uniform bool  palette_enabled = false;
+uniform vec3  pal0 = vec3(0.07, 0.09, 0.12);  // dark
+uniform vec3  pal1 = vec3(0.24, 0.45, 0.68);  // mid
+uniform vec3  pal2 = vec3(0.68, 0.85, 0.94);  // light
+uniform vec3  pal3 = vec3(0.95, 0.98, 1.00);  // highlight
 
 /* ---------- helpers ---------- */
 
@@ -107,72 +84,76 @@ vec3 hsv2rgb(vec3 hsv){
 }
 
 vec3 apply_grading(vec3 col,float br,float ct,float sat){
-    col+=br;
-    col=(col-0.5)*ct+0.5;
-    float luma=dot(col,vec3(0.2126,0.7152,0.0722));
-    col=mix(vec3(luma),col,sat);
-    return clamp(col,0.0,1.0);
+    col += br;
+    col  = (col - 0.5) * ct + 0.5;
+    float luma = dot(col, vec3(0.2126,0.7152,0.0722));
+    col  = mix(vec3(luma), col, sat);
+    return clamp(col, 0.0, 1.0);
 }
 
-float vignette_mask(vec2 uv,float strength,float softness,vec2 viewport_size){
-    vec2 aspect=vec2(1.0,viewport_size.x/viewport_size.y);
-    vec2 p=(uv-0.5)*aspect;
-    float d=length(p);
-    float edge=0.5;
-    float v=1.0-smoothstep(edge-softness,edge+softness,d);
-    return mix(1.0,v,strength);
+vec3 nearest_palette(vec3 c){
+    vec3 p0=pal0, p1=pal1, p2=pal2, p3=pal3;
+    float d0=distance(c,p0), d1=distance(c,p1), d2=distance(c,p2), d3=distance(c,p3);
+    vec3 best=p0; float bd=d0;
+    if(d1<bd){best=p1; bd=d1;}
+    if(d2<bd){best=p2; bd=d2;}
+    if(d3<bd){best=p3; bd=d3;}
+    return best;
 }
 
 /* ---------- main ---------- */
 
 void fragment(){
-    // Robust viewport size (works across Godot 4.x)
     vec2 viewport_size = vec2(textureSize(SCREEN_TEXTURE, 0));
-
     ivec2 ipx = ivec2(FRAGCOORD.xy);
 
-    // Pixel snapping for chunky resolution
+    // pixel snap
     vec2 uv;
     if (scale_resolution && target_resolution_scale > 1) {
-        ivec2 low     = ipx / target_resolution_scale;
-        vec2  samplep = (vec2(low) + 0.5) * float(target_resolution_scale);
+        ivec2 low = ipx / target_resolution_scale;
+        vec2 samplep = (vec2(low) + 0.5) * float(target_resolution_scale);
         uv = samplep / viewport_size;
     } else {
         uv = SCREEN_UV;
     }
 
-    // Chromatic aberration: shift R/B by N pixels along radial direction
+    // sample scene (strong chromatic aberration)
     vec3 color;
     if (chromab_enabled && chromab_pixels > 0.0) {
         vec2 center_uv = vec2(0.5);
-        vec2 dir = normalize(uv - center_uv + 1e-6);       // avoid NaN at exact center
+        vec2 dir = normalize(uv - center_uv + 1e-6);
         vec2 px_uv = dir * (chromab_pixels / viewport_size);
         float r = texture(SCREEN_TEXTURE, uv + px_uv).r;
         float g = texture(SCREEN_TEXTURE, uv).g;
         float b = texture(SCREEN_TEXTURE, uv - px_uv).b;
-        color = vec3(r, g, b);
+        color = vec3(r,g,b);
     } else {
         color = texture(SCREEN_TEXTURE, uv).rgb;
     }
 
-    // Optional hue remap (swap hue using 1D gradient)
+    // optional hue remap
     if (enable_recolor) {
         vec3 hsv = rgb2hsv(color);
         float hue01 = hsv.x / 360.0;
-        vec3 mapped_rgb = texture(to_gradient, vec2(hue01, 0.5)).rgb;
-        vec3 mapped_hsv = rgb2hsv(mapped_rgb);
-        hsv.x = mapped_hsv.x;
+        vec3 map_rgb = texture(to_gradient, vec2(hue01, 0.5)).rgb;
+        hsv.x = rgb2hsv(map_rgb).x;
         color = hsv2rgb(hsv);
     }
 
-    // Filmic pop
+    // grading
     color = apply_grading(color, brightness, contrast, saturation);
 
-    // Posterize + ordered dithering
+    // subtle grain
+    if (noise_enabled && noise_strength > 0.0) {
+        float n = fract(sin(dot(vec2(ipx) + TIME * 121.7, vec2(12.9898,78.233))) * 43758.5453);
+        n = n * 2.0 - 1.0;
+        color = clamp(color + n * noise_strength, 0.0, 1.0);
+    }
+
+    // quantize + ordered dithering
     ivec3 ci = ivec3(round(color * 255.0));
     if (dithering) {
-        ci += ivec3(dither4x4(ipx));
-        ci = clamp(ci, ivec3(0), ivec3(255));
+        ci = clamp(ci + ivec3(dither4x4(ipx)), ivec3(0), ivec3(255));
     }
 
     vec3 quant;
@@ -183,16 +164,9 @@ void fragment(){
         quant = vec3(ci) / 255.0;
     }
 
-    // CRT scanlines (row-based darkening)
-    if (scanlines_enabled && scanline_strength > 0.0) {
-        float s = 0.5 + 0.5 * sin(float(ipx.y) * 3.14159265 * scanline_frequency);
-        quant *= mix(1.0, s, scanline_strength);
-    }
-
-    // Vignette
-    if (vignette_enabled && vignette_strength > 0.0) {
-        float v = vignette_mask(SCREEN_UV, vignette_strength, vignette_softness, viewport_size);
-        quant *= v;
+    // optional 4-color palette crush
+    if (palette_enabled) {
+        quant = nearest_palette(quant);
     }
 
     COLOR = vec4(quant, 1.0);
