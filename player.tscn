@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu2vt4dd76umh"]
+[gd_scene load_steps=5 format=3 uid="uid://cu2vt4dd76umh"]
 
 [ext_resource type="PackedScene" uid="uid://dwr8ojt767kfa" path="res://pistol.tscn" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://lab5vwbuybey" path="res://player/scripts/player.gd" id="1_onrkg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_onrkg"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 1000.0
+dof_blur_far_transition = 250.0
+dof_blur_amount = 0.3
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 2
@@ -16,7 +22,9 @@ shape = SubResource("CapsuleShape3D_sh265")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+attributes = SubResource("CameraAttributesPractical_onrkg")
 current = true
+far = 1500.0
 
 [node name="Pistol" parent="." instance=ExtResource("1_4flbx")]
 visible = false
