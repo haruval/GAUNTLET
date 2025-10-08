@@ -1,9 +1,9 @@
 extends Control
 
-@export var line_len: int = 6     # length of each tick
-@export var gap: int = 4          # gap from the center
-@export var thickness: int = 2    # tick thickness (pixels)
-@export var color: Color = Color(1, 1, 1, 1)  # white
+@export var line_len: int = 20    # length of each tick
+@export var gap: int = 0          # gap from the center
+@export var thickness: int = 16    # tick thickness (pixels)
+@export var color: Color = Color(0.0, 0.184, 0.988, 1.0)  # white
 
 func _ready() -> void:
 	# Make sure we’re centered and the pivot is the center

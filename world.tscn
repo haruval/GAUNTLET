@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=19 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://bj1vjhv0fxjbv" path="res://crosshair.gd" id="3_aqk2v"]
+[ext_resource type="Texture2D" uid="uid://dnl4slriqwudu" path="res://grasstexture.png" id="3_ioo17"]
 [ext_resource type="PackedScene" uid="uid://6lc1flonccyr" path="res://Target_level1.tscn" id="4_aqk2v"]
 [ext_resource type="Shader" uid="uid://bcfs12m7g8xck" path="res://retro_postprocess_screen.gdshader" id="5_036b0"]
 [ext_resource type="Texture2D" uid="uid://bw2iwhj4uyf22" path="res://gauntletthick.png" id="6_dwbse"]
 [ext_resource type="Script" uid="uid://ymrlhaa8tsif" path="res://splash_layer.gd" id="6_pkg7o"]
 [ext_resource type="Script" uid="uid://cu0nvugdnrhlr" path="res://pause_layer.gd" id="8_gbfbk"]
+[ext_resource type="Texture2D" uid="uid://bsgs2g1iiyf7h" path="res://dirttexture.jpg" id="10_wse8f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -22,8 +24,9 @@ sky = SubResource("Sky_fj7yv")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gbfbk"]
-albedo_color = Color(0.42352942, 0.28627452, 0.22745098, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wse8f"]
+albedo_texture = ExtResource("3_ioo17")
+uv1_scale = Vector3(4, 4, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
 
@@ -50,6 +53,10 @@ shader_parameter/pal1 = Vector3(0.2, 0.45, 0.2)
 shader_parameter/pal2 = Vector3(0.6, 0.8, 0.35)
 shader_parameter/pal3 = Vector3(0.9, 0.95, 0.7)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
+albedo_texture = ExtResource("10_wse8f")
+uv1_scale = Vector3(200, 200, 1)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_fj7yv")
 
@@ -67,10 +74,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 use_collision = true
 collision_layer = 2
 size = Vector3(20, 0.5, 20)
-material = SubResource("StandardMaterial3D_gbfbk")
+material = SubResource("StandardMaterial3D_wse8f")
 
 [node name="Wall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29, -10)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
 transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 0.2, 0, 0, 0)
@@ -243,3 +251,8 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 text = "QUIT"
+
+[node name="GroundBase" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92, 0)
+size = Vector3(500, 1, 500)
+material = SubResource("StandardMaterial3D_ic0uy")
