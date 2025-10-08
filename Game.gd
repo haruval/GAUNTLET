@@ -17,12 +17,12 @@ var level: int = 1
 #level params
 # Level data for this scene
 var levels: Array = [
-	{"goal": 3, "duration": 10.0},  # Level 1
+	{"goal": 50, "duration": 30.0},  # Level 1
 	# You can add more dicts here if you want to run multiple levels in one scene later.
 ]
 
 func _ready() -> void:
-	Engine.max_fps = 120
+	Engine.max_fps = 240
 	randomize()
 
 	# Initialize the scene's level from the exported value

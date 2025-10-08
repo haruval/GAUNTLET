@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=12 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://bj1vjhv0fxjbv" path="res://crosshair.gd" id="3_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://6lc1flonccyr" path="res://Target_level1.tscn" id="4_aqk2v"]
+[ext_resource type="Shader" uid="uid://bcfs12m7g8xck" path="res://retro_postprocess_screen.gdshader" id="5_036b0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -21,6 +22,26 @@ glow_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwbse"]
+shader = ExtResource("5_036b0")
+shader_parameter/scale_resolution = true
+shader_parameter/target_resolution_scale = 3
+shader_parameter/change_color_depth = false
+shader_parameter/target_color_depth = 5
+shader_parameter/dithering = false
+shader_parameter/brightness = 0.0
+shader_parameter/contrast = 1.35
+shader_parameter/saturation = 0.9
+shader_parameter/scanlines_enabled = true
+shader_parameter/scanline_strength = 0.25
+shader_parameter/scanline_frequency = 2.0
+shader_parameter/vignette_enabled = true
+shader_parameter/vignette_strength = 0.35
+shader_parameter/vignette_softness = 0.8
+shader_parameter/chromab_enabled = true
+shader_parameter/chromab_pixels = 1.5
+shader_parameter/enable_recolor = false
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_fj7yv")
@@ -112,3 +133,14 @@ wall = NodePath("../Wall")
 
 [node name="Target3" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
+
+[node name="PostFX" type="CanvasLayer" parent="."]
+
+[node name="RetroOverlay" type="ColorRect" parent="PostFX"]
+material = SubResource("ShaderMaterial_dwbse")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
