@@ -222,8 +222,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SensLabel" type="Label" parent="PauseLayer/PauseRoot/Panel/HBox"]
-visible = false
 layout_mode = 2
+text = "sensitivity: "
 
 [node name="SensInput" type="LineEdit" parent="PauseLayer/PauseRoot/Panel/HBox"]
 layout_mode = 2
