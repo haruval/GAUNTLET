@@ -10,7 +10,7 @@ radius = 0.3
 height = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q42c6"]
-albedo_color = Color(1, 1, 0, 1)
+albedo_color = Color(0.4, 0.46666667, 0.9098039, 1)
 
 [node name="Target" type="StaticBody3D" groups=["target"]]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

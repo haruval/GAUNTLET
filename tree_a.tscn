@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://sp8u1afsw1np"]
+
+[ext_resource type="PackedScene" uid="uid://gfddgn8n26gc" path="res://assetsfolder/tree_v1.glb" id="1_p4grh"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="tree_v1" parent="." instance=ExtResource("1_p4grh")]

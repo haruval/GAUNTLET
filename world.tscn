@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=18 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ymrlhaa8tsif" path="res://splash_layer.gd" id="6_pkg7o"]
 [ext_resource type="Script" uid="uid://cu0nvugdnrhlr" path="res://pause_layer.gd" id="8_gbfbk"]
 [ext_resource type="Texture2D" uid="uid://bsgs2g1iiyf7h" path="res://dirttexture.jpg" id="10_wse8f"]
+[ext_resource type="PackedScene" uid="uid://sp8u1afsw1np" path="res://tree_a.tscn" id="11_ic0uy"]
 
 [sub_resource type="Environment" id="Environment_wse8f"]
 fog_enabled = true
@@ -23,8 +24,8 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.02
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wse8f"]
-albedo_texture = ExtResource("3_ioo17")
-uv1_scale = Vector3(4, 4, 1)
+albedo_texture = ExtResource("10_wse8f")
+uv1_scale = Vector3(7, 7, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
 
@@ -52,8 +53,8 @@ shader_parameter/pal2 = Vector3(0.6, 0.8, 0.35)
 shader_parameter/pal3 = Vector3(0.9, 0.95, 0.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
-albedo_texture = ExtResource("10_wse8f")
-uv1_scale = Vector3(200, 200, 1)
+albedo_texture = ExtResource("3_ioo17")
+uv1_scale = Vector3(100, 100, 0.5)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_fj7yv")
@@ -255,3 +256,30 @@ text = "QUIT"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92, 0)
 size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_ic0uy")
+
+[node name="tree" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 8.81758, -1.2718472, -14.80565)
+
+[node name="tree2" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -8.104413, -1.2718472, -14.5023)
+
+[node name="tree4" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -14.5274, -1.2718472, -7.4127383)
+
+[node name="tree7" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -14.5274, -1.2718472, -12.064032)
+
+[node name="tree8" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -7.778068, -1.2718472, -24.051483)
+
+[node name="tree9" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 7.6253724, -1.2718472, -28.422714)
+
+[node name="tree5" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 18.558311, -1.2718472, -7.4127383)
+
+[node name="tree6" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 18.558311, -1.2718472, -11.9629)
+
+[node name="tree3" parent="." instance=ExtResource("11_ic0uy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.76948166, -1.2718472, -20.095966)
