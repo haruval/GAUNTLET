@@ -22,7 +22,7 @@ var levels: Array = [
 ]
 
 func _ready() -> void:
-	Engine.max_fps = 240
+	Engine.max_fps = 120
 	randomize()
 
 	# Initialize the scene's level from the exported value

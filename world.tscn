@@ -132,12 +132,15 @@ one_shot = true
 
 [node name="Target" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
+wall_size = Vector2(8, 6)
 
 [node name="Target2" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
+wall_size = Vector2(8, 6)
 
 [node name="Target3" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
+wall_size = Vector2(8, 6)
 
 [node name="PostFX" type="CanvasLayer" parent="."]
 
