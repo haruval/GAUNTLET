@@ -9,7 +9,7 @@ uniform bool  scale_resolution = true;
 uniform int   target_resolution_scale : hint_range(1,32) = 8;   // bigger = chunkier pixels
 uniform bool  change_color_depth = true;
 uniform int   target_color_depth  : hint_range(1,8) = 2;        // 2 bits/channel = heavy posterize
-uniform bool  dithering = true;
+uniform bool  dithering = false;
 
 /* simple grading */
 group_uniforms grading;
@@ -19,7 +19,7 @@ uniform float saturation : hint_range(0.0,2.0)  = 0.9;
 
 /* film grain (kept subtle) */
 group_uniforms film_fx;
-uniform bool  noise_enabled        = true;
+uniform bool  noise_enabled        = false;
 uniform float noise_strength       : hint_range(0.0,0.5) = 0.03;
 
 /* 🔴 chromatic aberration (ON and stronger by default) */
