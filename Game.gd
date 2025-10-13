@@ -16,6 +16,7 @@ var level: int = 1
 
 #level params
 # Level data for this scene
+#real values: 60 goal - 30 sec
 var levels: Array = [
 	{"goal": 60, "duration": 30.0},  # Level 1
 	# You can add more dicts here if you want to run multiple levels in one scene later.
