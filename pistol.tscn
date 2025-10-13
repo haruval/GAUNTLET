@@ -1,123 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwr8ojt767kfa"]
+[gd_scene load_steps=6 format=3 uid="uid://dwr8ojt767kfa"]
 
-[ext_resource type="Texture2D" uid="uid://cpv8bmyt8yxdh" path="res://weapons/pistol/sprites/Idle.png" id="1_78vgs"]
 [ext_resource type="Script" uid="uid://cnr23vgqx8mi0" path="res://pistol.gd" id="1_onp47"]
-[ext_resource type="Texture2D" uid="uid://cs1qrhdy5tl1x" path="res://weapons/pistol/sprites/Shoot1.png" id="2_onp47"]
-[ext_resource type="Texture2D" uid="uid://bvjpfplxny345" path="res://weapons/pistol/sprites/Shoot2.png" id="3_a4mtk"]
-[ext_resource type="Texture2D" uid="uid://ckpwimr7g7k6u" path="res://weapons/pistol/sprites/Shoot3.png" id="4_31i3s"]
-[ext_resource type="Texture2D" uid="uid://dends6vuu7ogk" path="res://weapons/pistol/sprites/Shoot4.png" id="5_f60ox"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_pjrfv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_78vgs")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_onp47")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_a4mtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_31i3s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_f60ox")
-}],
-"loop": true,
-"name": &"Shoot",
-"speed": 5.0
-}]
 
 [sub_resource type="Animation" id="Animation_78vgs"]
 resource_name = "Idle"
 step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/Control/Sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/Control/Sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_onp47"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/Control/Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/Control/Sprite:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
 
 [sub_resource type="Animation" id="Animation_a4mtk"]
 resource_name = "Shoot"
 length = 0.80002
 step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/Control/Sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Shoot"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/Control/Sprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_onp47"]
 _data = {
@@ -141,13 +36,6 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="Sprite" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
-visible = false
-position = Vector2(-6, -83)
-scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_pjrfv")
-animation = &"Idle"
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
