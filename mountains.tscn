@@ -1,11 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://bn3tlohy5soro"]
 
+[ext_resource type="PackedScene" uid="uid://esqwwtbqwpnq" path="res://assetsfolder/mountain_mid2.glb" id="1_2g0tp"]
 [ext_resource type="PackedScene" uid="uid://dbmoj2fw5slx0" path="res://assetsfolder/mountain_close.glb" id="1_evu55"]
-[ext_resource type="PackedScene" uid="uid://crrh81ktf0a3l" path="res://assetsfolder/mountain_mid.glb" id="2_2g0tp"]
 
 [node name="Node3D" type="Node3D"]
 
-[node name="mountain_close" parent="." instance=ExtResource("1_evu55")]
+[node name="mountain_mid2" parent="." instance=ExtResource("1_2g0tp")]
+transform = Transform3D(-4.4541903e-07, 0, 10.19, 0, 10.19, 0, -10.19, 0, -4.4541903e-07, 60.797585, 0, 25.10263)
 
-[node name="mountain_mid" parent="." instance=ExtResource("2_2g0tp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2785187, 22.273865)
+[node name="mountain_mid3" parent="." instance=ExtResource("1_2g0tp")]
+transform = Transform3D(-4.4541903e-07, 0, 10.19, 0, 10.19, 0, -10.19, 0, -4.4541903e-07, -69.36159, 0, 25.10263)
+
+[node name="mountain_mid4" parent="." instance=ExtResource("1_2g0tp")]
+transform = Transform3D(-4.4541903e-07, 0, 10.19, 0, 10.19, 0, -10.19, 0, -4.4541903e-07, 24.373436, 4.811638, 47.98195)
+
+[node name="mountain_close" parent="." instance=ExtResource("1_evu55")]
