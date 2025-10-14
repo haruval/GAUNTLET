@@ -2622,3 +2622,21 @@ transform = Transform3D(0.34906322, 0, 0.19533277, 0, 0.4, 0, -0.19533277, 0, 0.
 
 [node name="mountainblock" parent="mountains" instance=ExtResource("13_2o6r5")]
 transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4.846983, -91.38606, 0, -168.14148)
+
+[node name="mountains2" type="Node3D" parent="."]
+transform = Transform3D(-0.09096278, 0, 0.9958543, 0, 1, 0, -0.9958543, 0, -0.09096278, -269.0638, 0, 0)
+
+[node name="mountainblock" parent="mountains2" instance=ExtResource("13_2o6r5")]
+transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4.846983, -91.38606, 0, -168.14148)
+
+[node name="mountains3" type="Node3D" parent="."]
+transform = Transform3D(-0.9852859, 0, -0.17091453, 0, 1, 0, 0.17091453, 0, -0.9852859, -157.62491, 0, 356.0027)
+
+[node name="mountainblock" parent="mountains3" instance=ExtResource("13_2o6r5")]
+transform = Transform3D(-4.8469834, 0, 0.17103857, 0, 4.85, 0, -0.17103857, 0, -4.8469834, -109.623344, 0, -63.0076)
+
+[node name="mountains4" type="Node3D" parent="."]
+transform = Transform3D(0.1787335, 0, -0.98389757, 0, 1, 0, 0.98389757, 0, 0.1787335, 141.0217, 0, 356.0027)
+
+[node name="mountainblock" parent="mountains4" instance=ExtResource("13_2o6r5")]
+transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4.846983, -91.38606, 0, -168.14148)

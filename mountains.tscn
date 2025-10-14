@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://esqwwtbqwpnq" path="res://assetsfolder/mountain_mid2.glb" id="1_2g0tp"]
 [ext_resource type="PackedScene" uid="uid://dbmoj2fw5slx0" path="res://assetsfolder/mountain_close.glb" id="1_evu55"]
 
-[node name="Node3D" type="Node3D"]
+[node name="mountains" type="Node3D"]
 
 [node name="mountain_mid2" parent="." instance=ExtResource("1_2g0tp")]
 transform = Transform3D(-4.4541903e-07, 0, 10.19, 0, 10.19, 0, -10.19, 0, -4.4541903e-07, 60.797585, 0, 25.10263)
