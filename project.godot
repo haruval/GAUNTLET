@@ -19,6 +19,7 @@ config/icon="uid://bquoo6fuay817"
 [autoload]
 
 Settings="*res://Settings.gd"
+WebInputBoot="*res://WebInputBoot.gd"
 
 [debug]
 

@@ -9,27 +9,28 @@ const PITCH_LIMIT: float = 89.0
 
 @onready var head: Node3D = $Head
 @onready var cam: Camera3D = $Head/Camera3D
-# (Optional) if you want the pistol to follow head pitch but not required:
 @onready var pistol: Node3D = $Pistol
 
 var pitch_deg: float = 0.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-func _input(event) -> void:
-	if event is InputEventMouseMotion:
-		#yaw
-		rotation_degrees.y -= event.relative.x * mouse_sens
-		#pitch
-		pitch_deg = clamp(pitch_deg - event.relative.y * mouse_sens, -PITCH_LIMIT, PITCH_LIMIT)
-		head.rotation_degrees.x = pitch_deg
-		
-		
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		shoot()
-		if pistol and pistol.has_method("play_shoot"):
-			pistol.play_shoot()
+
+# event-based look, only while captured, no frame-delta, using relative
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			# Scale up sens a bit so Web doesn't feel sluggish
+			var sens := mouse_sens
+			rotation_degrees.y -= event.relative.x * sens
+			pitch_deg = clamp(pitch_deg - event.relative.y * sens, -PITCH_LIMIT, PITCH_LIMIT)
+			head.rotation_degrees.x = pitch_deg
+
+		# keep your click-to-shoot here (actions are safer tho)
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			shoot()
+			if pistol and pistol.has_method("play_shoot"):
+				pistol.play_shoot()
 
 func shoot() -> void:
 	var vp_pos = get_viewport().get_mouse_position()
@@ -50,12 +51,12 @@ func shoot() -> void:
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
-	#jump - comment out if breaking shit
+
+	# jump
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		
-	#get the input direction and handle movement/decel
+
+	# movement
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
@@ -64,12 +65,12 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-	
+
 	move_and_slide()
-	
+
 # Optional helpers so UI can call methods (no direct field access needed):
 func get_mouse_sens() -> float:
 	return mouse_sens
 
 func set_mouse_sens(v: float) -> void:
-	mouse_sens = max(0.0001, v)  # avoid zero/negatives
+	mouse_sens = max(0.0001, v)
