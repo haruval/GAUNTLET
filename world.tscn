@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=23 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://sp8u1afsw1np" path="res://tree_a.tscn" id="11_ic0uy"]
 [ext_resource type="PackedScene" uid="uid://dgwmt5pgw1ddo" path="res://tree_v2.tscn" id="11_k3n1d"]
 [ext_resource type="PackedScene" uid="uid://bn3tlohy5soro" path="res://mountains.tscn" id="13_2o6r5"]
+[ext_resource type="Texture2D" uid="uid://bxsp1775duy54" path="res://assetsfolder/water.png" id="15_hiqwa"]
 
 [sub_resource type="Environment" id="Environment_wse8f"]
 fog_enabled = true
@@ -59,6 +60,10 @@ shader_parameter/pal3 = Vector3(0.9, 0.95, 0.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
 albedo_texture = ExtResource("3_ioo17")
+uv1_scale = Vector3(100, 100, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u3nc"]
+albedo_texture = ExtResource("15_hiqwa")
 uv1_scale = Vector3(100, 100, 0.5)
 
 [node name="World" type="Node3D"]
@@ -270,6 +275,8 @@ text = "QUIT"
 
 [node name="GroundBase" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92, 0)
+use_collision = true
+collision_layer = 2
 size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_ic0uy")
 
@@ -2651,3 +2658,8 @@ transform = Transform3D(0.1787335, 0, -0.98389757, 0, 1, 0, 0.98389757, 0, 0.178
 
 [node name="mountainblock" parent="mountains4" instance=ExtResource("13_2o6r5")]
 transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4.846983, -91.38606, 0, -168.14148)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1756039, 0)
+size = Vector3(1000, 1, 1000)
+material = SubResource("StandardMaterial3D_2u3nc")
