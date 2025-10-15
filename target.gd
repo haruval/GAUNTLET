@@ -7,11 +7,17 @@ signal scored
 @export var wall_size := Vector2(10.0, 5.0)  # width (X) x height (Y) of the wall’s usable area
 @export var margin := 0.5                    # keep away from edges
 @export var pop_out := 0.1                   # how far in front of the wall surface
+@onready var hit_sound: AudioStreamPlayer3D = $HitSound
 
 func _ready() -> void:
 	respawn()
 
 func on_shot() -> void:
+	if is_instance_valid(hit_sound):
+		# restart the sound if it's mid-play, so it always clicks immediately
+		hit_sound.stop()
+		hit_sound.play()
+		
 	emit_signal("scored")
 	respawn()
 
