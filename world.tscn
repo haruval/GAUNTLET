@@ -64,7 +64,7 @@ uv1_scale = Vector3(100, 100, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u3nc"]
 albedo_texture = ExtResource("15_hiqwa")
-uv1_scale = Vector3(100, 100, 0.5)
+uv1_scale = Vector3(200, 200, 0.5)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_fj7yv")
@@ -2659,7 +2659,7 @@ transform = Transform3D(0.1787335, 0, -0.98389757, 0, 1, 0, 0.98389757, 0, 0.178
 [node name="mountainblock" parent="mountains4" instance=ExtResource("13_2o6r5")]
 transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4.846983, -91.38606, 0, -168.14148)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="WaterBase" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1756039, 0)
 size = Vector3(1000, 1, 1000)
 material = SubResource("StandardMaterial3D_2u3nc")
