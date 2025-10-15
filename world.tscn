@@ -82,7 +82,7 @@ size = Vector3(20, 0.5, 20)
 material = SubResource("StandardMaterial3D_wse8f")
 
 [node name="Wall" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3953342, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -10)
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
@@ -149,21 +149,21 @@ one_shot = true
 
 [node name="Target" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
-wall_size = Vector2(8, 6)
+wall_size = Vector2(8, 4)
 
 [node name="HitSound" type="AudioStreamPlayer3D" parent="Target"]
 stream = ExtResource("6_70uel")
 
 [node name="Target2" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
-wall_size = Vector2(8, 6)
+wall_size = Vector2(8, 4)
 
 [node name="HitSound" type="AudioStreamPlayer3D" parent="Target2"]
 stream = ExtResource("6_70uel")
 
 [node name="Target3" parent="." node_paths=PackedStringArray("wall") instance=ExtResource("4_aqk2v")]
 wall = NodePath("../Wall")
-wall_size = Vector2(8, 6)
+wall_size = Vector2(8, 4)
 
 [node name="HitSound" type="AudioStreamPlayer3D" parent="Target3"]
 stream = ExtResource("6_70uel")
