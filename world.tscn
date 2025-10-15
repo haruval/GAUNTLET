@@ -82,7 +82,7 @@ size = Vector3(20, 0.5, 20)
 material = SubResource("StandardMaterial3D_wse8f")
 
 [node name="Wall" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3953342, -10)
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
