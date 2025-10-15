@@ -17,3 +17,4 @@ mono_crash.*.json
 
 # local builds
 builds/
+builds/.DS_Store
