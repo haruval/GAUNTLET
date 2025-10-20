@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4h61wnda4pdm"]
+[gd_scene load_steps=24 format=3 uid="uid://d4h61wnda4pdm"]
 
 [ext_resource type="PackedScene" uid="uid://cu2vt4dd76umh" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ky125qays7vt" path="res://Game.gd" id="1_fj7yv"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dgwmt5pgw1ddo" path="res://tree_v2.tscn" id="11_k3n1d"]
 [ext_resource type="PackedScene" uid="uid://bn3tlohy5soro" path="res://mountains.tscn" id="13_2o6r5"]
 [ext_resource type="Texture2D" uid="uid://bxsp1775duy54" path="res://assetsfolder/water.png" id="15_hiqwa"]
+[ext_resource type="PackedScene" uid="uid://c7fhw3kwdyld8" path="res://picnic.tscn" id="16_2u3nc"]
 
 [sub_resource type="Environment" id="Environment_wse8f"]
 fog_enabled = true
@@ -2663,3 +2664,9 @@ transform = Transform3D(-4.846983, 0, 0.17103851, 0, 4.85, 0, -0.17103851, 0, -4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1756039, 0)
 size = Vector3(1000, 1, 1000)
 material = SubResource("StandardMaterial3D_2u3nc")
+
+[node name="picnic" type="Node3D" parent="."]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0, -3.011333)
+
+[node name="Node3D" parent="picnic" instance=ExtResource("16_2u3nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.3286676, -6.6966343)
