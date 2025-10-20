@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ltcpnj6nu6pv"]
+
+[ext_resource type="PackedScene" uid="uid://22uvtkesiuvg" path="res://assetsfolder/pine.glb" id="1_qf354"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="pine" parent="." instance=ExtResource("1_qf354")]
